@@ -103,9 +103,9 @@ type Candidate  = (CellCoordinate, Int)
 
 -- Need to keep track of solved numbers in grid
 -- and solution possibilities in candidates
-data SudokuState = Sudoku { grid       :: SudokuGrid,
-                            candidates :: [Candidate],
-                            loki       :: [String] }
+data Sudoku = Sudoku { grid       :: SudokuGrid,
+                       candidates :: [Candidate],
+                       loki       :: [String] }
 
 -- convert from number to Cell
 toCell :: Int -> Cell Int
@@ -123,7 +123,7 @@ convert str = A.listArray ((1, 1), (9, 9))
               [toCell (read [xxx !! i] :: Int)| i <- [0..80]]
   where xxx = filter isDigit str
 
-newSolver :: SudokuGrid -> SudokuState
+newSolver :: SudokuGrid -> Sudoku
 newSolver grid = Sudoku { grid = grid,
                          candidates = findCandidates grid,
                          loki = [] }
@@ -273,7 +273,7 @@ getBoxC i = filter (f i)
 -- 2) Remove solved numbers from grid
 -- 3) Remove solved numbers from Candidates,
 --    from row/column/box they affect
-eliminateSingles :: SudokuState -> SudokuState
+eliminateSingles :: Sudoku -> Sudoku
 eliminateSingles state@(Sudoku sgrid xs loki) =
   -- trace ("eliminateSingles: " ++ show (xs \\ updateCandidates ngrid xs))
   Sudoku ngrid nxs loki
@@ -329,7 +329,7 @@ eliminator f xs = nxs
 --    a pair of numbers as their only possible solutions.
 -- 2) Remove these numbers from Candidates list, for each
 --    row/column/box the pairs affects
-eliminatePairs :: SudokuState -> SudokuState
+eliminatePairs :: Sudoku -> Sudoku
 eliminatePairs state@(Sudoku sgrid xs _) = state {candidates = nxs}
   where
     nxs = eliminator stepX xs
@@ -359,7 +359,7 @@ eliminatePairs state@(Sudoku sgrid xs _) = state {candidates = nxs}
 --    A cell may have 2-3 of these numbers.
 -- 2) Remove these numbers from Candidates list, for each
 --    row/column/box the pairs affects
-eliminateTriples :: SudokuState -> SudokuState
+eliminateTriples :: Sudoku -> Sudoku
 eliminateTriples state@(Sudoku sgrid xs _) = state {candidates = nxs}
   where
     nxs = eliminator stepX xs
@@ -388,7 +388,7 @@ eliminateTriples state@(Sudoku sgrid xs _) = state {candidates = nxs}
 --    A cell may have 2-4 of these numbers.
 -- 2) Remove these numbers from Candidates list, for each
 --    row/column/box the pairs affects
-eliminateQuads :: SudokuState -> SudokuState
+eliminateQuads :: Sudoku -> Sudoku
 eliminateQuads state@(Sudoku sgrid xs _) = state {candidates = nxs}
   where
     nxs = eliminator stepX xs
@@ -503,7 +503,7 @@ getNakedQuads cands = found
 -- 1) For each box, find out if two cells in the same row/column
 --    contain a number
 -- 2) the number can be eliminated from the same row/cell in other boxes
-eliminatePointingPairs :: SudokuState -> SudokuState
+eliminatePointingPairs :: Sudoku -> Sudoku
 eliminatePointingPairs state@(Sudoku sgrid xs loki) = Sudoku ngrid nxs loki
   where
     (ngrid, nxs) = foldr (\i -> stepC i . stepR i)  (sgrid, xs) [1..9]
@@ -562,7 +562,7 @@ candsThatHave x = filter (\(c,v) -> v == x)
 --    sees the wings.
 -- 2) Candidate C can be removed from those cell that are seen by both wing
 --    cells
-eliminateYWings :: SudokuState -> SudokuState
+eliminateYWings :: Sudoku -> Sudoku
 eliminateYWings state@(Sudoku sgrid xs _) = state { candidates = nxs }
   where
     nxs = foldr step xs ywings
@@ -601,7 +601,7 @@ eliminateYWings state@(Sudoku sgrid xs _) = state { candidates = nxs }
 
 -- If a line has solution for number n only in two cells, that are in the
 -- same box, n can be removed from other lines in that box.
-eliminateBoxLineReduction :: SudokuState -> SudokuState
+eliminateBoxLineReduction :: Sudoku -> Sudoku
 eliminateBoxLineReduction state@(Sudoku sgrid xs loki) = Sudoku ngrid nxs loki
   where
     (ngrid, nxs) = foldr (\i -> stepC i . stepR i)  (sgrid, xs) [1..9]
@@ -660,7 +660,7 @@ eliminateBoxLineReduction state@(Sudoku sgrid xs loki) = Sudoku ngrid nxs loki
 --      N  N  n
 --
 -- -> small n can be removed
-eliminateXWings :: SudokuState -> SudokuState
+eliminateXWings :: Sudoku -> Sudoku
 eliminateXWings state@(Sudoku sgrid xs loki) = Sudoku ngrid nxs loki
   where
     (ngrid, nxs) = foldr (\i -> stepC i . stepR i) (sgrid, xs) [2..9]
@@ -729,7 +729,7 @@ eliminateXWings state@(Sudoku sgrid xs loki) = Sudoku ngrid nxs loki
 --    sees the wings.
 -- 2) Candidate C can be removed from those cell that are seen by the
 --    cells
-eliminateXYZWings :: SudokuState -> SudokuState
+eliminateXYZWings :: Sudoku -> Sudoku
 eliminateXYZWings state@(Sudoku sgrid xs _) = state { candidates = nxs }
   where
     nxs = foldr step xs xyzwings
@@ -778,11 +778,11 @@ strategies = [("singles", eliminateSingles),
               ("XYZ-wing", eliminateXYZWings)]
 
 -- |Function 'solve' attempts to solve the given sudoku puzzle
-solve :: SudokuState -> SudokuState
+solve :: Sudoku -> Sudoku
 solve state@(Sudoku sgrid xs _) = solvestep strategies state
 
 -- step through strategies
-solvestep :: [(String, SudokuState -> SudokuState)] -> SudokuState -> SudokuState
+solvestep :: [(String, Sudoku -> Sudoku)] -> Sudoku -> Sudoku
 solvestep [] state = state
 solvestep ((fdesc,f):fs) state@(Sudoku sgrid xs loki)
   | success     = solvestep strategies nstate { loki = nloki }
