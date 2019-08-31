@@ -72,7 +72,13 @@ which has solution
      -> eliminate others from the same box
 -}
 
-module Main (newSolver, solve, prettyPrint, main) where
+module Sudoku (
+       Sudoku (..),
+       convert,
+       solve,
+       newSolver,
+       prettyPrint,
+       prettyPrintCandidates) where
 
 import           Data.Array    (Array, (!))
 import qualified Data.Array    as A
@@ -835,33 +841,3 @@ eraseAllBy p xs ys = xs \\ [x | x <- xs, y <- ys, p x y]
 
 -- eraseBy p = snd . partition p
 
-main =
-  do
-    -- grid  <- readFile "sudoku.txt"
-    -- let grid = "014600300 050000007 090840100 000400800 600050009 007009000 008016030 300000010 009008570"
-    let grid = "090060500080950001000803000204000080060080010010000702000509000100027090007010040"
-    -- let grid = grid1
-    putStrLn (prettyPrint $ convert grid)
-
-    let state@(Sudoku sgrid xs _) = newSolver (convert grid)
-    -- putStrLn $ prettyPrintCandidates (getBoxC 4 xs)
-    let nstate@(Sudoku nsgrid nxs loki) = solve state
-    -- putStrLn $ prettyPrint (gridDiff sgrid nsgrid)
-    putStrLn $ (concat . reverse) loki
-    putStrLn $ prettyPrint nsgrid
-    -- print nxs
-    putStrLn $ prettyPrintCandidates nxs
-
--- grid1 needed y-wing
-grid1 = "014600300 050000007 090840100 000400800 600050009 007009000 008016030 300000010 009008570"
--- grid2 needed boxlinereduction
-grid2 = "200068050008002000560004801000000530400000002097000000804300096000800300030490007"
--- grid3 needed x-wing
-grid3 = "700600008800030000090000310006740005005806900400092100087000020000060009600008001"
-grid4 = "100060027360000000540007000900001050700050003010300002000900016000000074670040009"
-grid5 = "100062900000750004003100500200000800090000060004000007009001200400075000002840005"
-grid6 = "600510009891704305205800041300147206100256038062938004010400003903671402426385007"
-grid7 = "005000800080030004203700000307086000500402007000390205000009502900070060001000300"
-grid8 = "600590000081007000000603200005100090018402670030006100004309000000700910000015002"
--- Solved by XYZ-wing: [], eliminated: [((4,3),8)]
-grid9 = "000704005020010070000080002090006250600070008053200010400090000030060090200407000"
