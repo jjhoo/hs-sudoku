@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2013-2015 Jani J. Hakala <jjhakala@gmail.com>
+-- Copyright (c) 2013-2019 Jani J. Hakala <jjhakala@gmail.com>
 --                                        Jyväskylä, Finland
 --
 --  This program is free software: you can redistribute it and/or modify
