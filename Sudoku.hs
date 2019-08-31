@@ -336,8 +336,8 @@ eliminatePairs state@(Sudoku sgrid xs _) = state {candidates = nxs}
 
     stepX desc cands fun2 p i xs
       -- need more than 2 cells in order to be of any use
-      | cellCount > 2 && pairlen > 0	= stepX2 desc cands pairs fun2 p i xs
-      | otherwise           = const []
+      | cellCount > 2 && pairlen > 0 = stepX2 desc cands pairs fun2 p i xs
+      | otherwise = const []
       where
         -- number of unsolved cells in row/column/box
         cellCount = length $ toCells cands
@@ -528,7 +528,7 @@ eliminatePointingPairs state@(Sudoku sgrid xs loki) = Sudoku ngrid nxs loki
     stepX line pnub psameL cands ns acc@(grid, xs) = foldr step acc ns
       where
         step n acc1
-          | null ppairs	= acc1
+          | null ppairs = acc1
           | otherwise   = eliminate line cands n ppairs acc1
           where
             -- pairs in the same box
@@ -624,7 +624,7 @@ eliminateBoxLineReduction state@(Sudoku sgrid xs loki) = Sudoku ngrid nxs loki
     stepX line p1 cands ns acc@(grid, xs) = foldr step acc ns
       where
         step n acc1
-          | null ppairs	= acc1
+          | null ppairs = acc1
           | otherwise   = eliminate p1 n ppairs acc1
           where
             pairs = nub [(c1, v1) |
