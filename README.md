@@ -8,7 +8,8 @@ Work in progress.
 
 Assuming debian/buster as the programming environment,
 
-    apt-get install ghc libghc-hspec-dev
+    apt-get install cabal-install ghc libghc-hspec-dev
+    cabal install permutation
 
 then to run some tests
 

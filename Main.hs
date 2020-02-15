@@ -6,7 +6,7 @@ main =
   do
     -- grid  <- readFile "sudoku.txt"
     -- let grid = "014600300 050000007 090840100 000400800 600050009 007009000 008016030 300000010 009008570"
-    let grid = "090060500080950001000803000204000080060080010010000702000509000100027090007010040"
+    let grid = "000921003009000060000000500080403006007000800500700040003000000020000700800195000"
     -- let grid = grid1
     putStrLn (prettyPrint $ convert grid)
 
@@ -17,7 +17,7 @@ main =
     putStrLn $ (concat . reverse) loki
     putStrLn $ prettyPrint nsgrid
     -- print nxs
-    putStrLn $ prettyPrintCandidates nxs
+    -- putStrLn $ prettyPrintCandidates nxs
 
 -- grid1 needed y-wing
 grid1 = "014600300 050000007 090840100 000400800 600050009 007009000 008016030 300000010 009008570"
