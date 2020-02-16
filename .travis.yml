@@ -1,0 +1,6 @@
+dist: bionic
+
+language: haskell
+cabal: "2.4"
+ghc:
+  - "8.4.4"
