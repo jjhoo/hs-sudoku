@@ -13,5 +13,5 @@ Assuming debian/buster as the programming environment,
 
 then to run some tests
 
-    ghc Spec.hs
-    ./Spec
+    cabal run sudoku
+    cabal test

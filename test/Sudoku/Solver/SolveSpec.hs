@@ -1,10 +1,10 @@
--- file Spec.hs
+module Sudoku.Solver.SolveSpec (spec) where
+
 import Test.Hspec
+import Sudoku.Solver
 
-import Sudoku
-
-main :: IO ()
-main = hspec $ do
+spec :: Spec
+spec = do
   describe "Sudoku.solve" $ do
     it "can solve sudoku (naked pairs)" $ do
        let grid = "400000938032094100095300240370609004529001673604703090957008300003900400240030709"

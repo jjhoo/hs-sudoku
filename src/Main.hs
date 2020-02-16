@@ -1,6 +1,6 @@
 module Main (main) where
 
-import Sudoku
+import Sudoku.Solver
 
 main =
   do

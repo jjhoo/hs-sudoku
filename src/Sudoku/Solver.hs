@@ -71,7 +71,7 @@ which has solution
      -> eliminate others from the same box
 -}
 
-module Sudoku (
+module Sudoku.Solver (
        Sudoku (..),
        convert,
        solve,
