@@ -18,26 +18,6 @@
 -- 9x9 grid with numbers 1-9, 3x3 sub-grids. Each number may occur once
 -- in a row, column and sub-grid
 
--- Mark unsolved cells as 0, solved as [1..9]
---  -- Changing to   data Cell a = Unsolved | Cell a
---     didn't change things much as most of the work involves the
---     the candidate list that has numbers [1..9]
---
--- Go through strategies, if a strategy reduces number of candidates,
--- restart starting from simple strategies
---
--- like in this sudoku solver, http://www.sudokuwiki.org/sudoku.htm
---
--- Notes / Todo:
--- - generalise getNakedPairs / getNakedTriples / getNakedQuads etc.
--- - better data structures for the task?
--- - extra work may be done because using [1..9] in many places,
---   solved numbers are not skipped
--- - check for proper partial / whole solutions, abort early if not
---
--- - needed to google about trace / traceShow
--- - started to do more function composition (.) while doing this
---
 {-
 
 solve http://www.dailysudoku.com/sudoku/play.shtml?year=2013&month=09&day=19
