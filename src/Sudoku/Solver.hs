@@ -358,10 +358,10 @@ findSets n pmatch pelim candidates = FindResult [] found
 --   check if there are exactly n cells that contain only n numbers of a set
 --   eliminate those numbers from other cells
 findNakedSets :: Int -> [Cell] -> FindResult
-findNakedSets n candidates = findSets n pmatch pelim candidates
+findNakedSets n = findSets n pmatch pelim
   where
     pelim poss cset cell@(Cell pos (Value value)) = not (Set.member pos poss) && Set.member value cset
-    pmatch cset = flip Set.isSubsetOf cset
+    pmatch = flip Set.isSubsetOf
 
 -- for all sets,
 --   get numbers and (pos, set of numbers)
@@ -370,7 +370,7 @@ findNakedSets n candidates = findSets n pmatch pelim candidates
 --   check if there are exactly n cells that contain numbers of the set
 --   eliminate other numbers from those cells
 findHiddenSets :: Int -> [Cell] -> FindResult
-findHiddenSets n candidates = findSets n pmatch pelim candidates
+findHiddenSets n = findSets n pmatch pelim
   where
     pelim poss cset cell@(Cell pos (Value value)) = Set.member pos poss && not (Set.member value cset)
     pmatch cset nset = Set.size (Set.intersection nset cset) > 0
