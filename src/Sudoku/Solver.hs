@@ -79,6 +79,7 @@ import Debug.Trace
 {-# ANN module "HLint: warn Use camelCase" #-}
 {-# ANN module "HLint: warn Use curry" #-}
 {-# ANN module "HLint: ignore Use infix" #-}
+{-# ANN module "HLint: ignore Use section" #-}
 
 -- a cell is either solved or known value
 data CellValue a = Unsolved | Value a
