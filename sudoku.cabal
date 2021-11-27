@@ -61,7 +61,7 @@ library
   -- other-extensions:
 
   -- Other library packages from which modules are imported.
-  build-depends:       base >=4.11 && <4.12, permutation >=0.5 && <0.6, array >=0.5 && <0.6, containers >=0.5 && <0.6, hspec >=2.5 && <2.6
+  build-depends:       base >=4.13 && <4.14, permutation >=0.5 && <0.6, array >=0.5 && <0.6, containers >=0.5 && <0.6, hspec >=2.9 && <2.10
 
   -- Directories containing source files.
   hs-source-dirs:      src
@@ -82,7 +82,7 @@ executable sudoku
   -- other-extensions:
 
   -- Other library packages from which modules are imported.
-  build-depends:       base >=4.11 && <4.12, permutation >=0.5 && <0.6, array >=0.5 && <0.6, containers >=0.5 && <0.6
+  build-depends:       base >=4.13 && <4.14, permutation >=0.5 && <0.6, array >=0.5 && <0.6, containers >=0.5 && <0.6
 
   -- Directories containing source files.
   hs-source-dirs:	   src
@@ -97,8 +97,8 @@ test-suite spec
   hs-source-dirs:      test
   -- ghc-options:        -Wall
 
-  build-tool-depends: hspec-discover:hspec-discover >= 2.5 && < 2.6
-  build-depends:      base >=4.11 && <4.12, permutation >=0.5 && <0.6, array >=0.5 && <0.6, containers >=0.5 && <0.6, hspec >=2.5 && <2.6, hspec >= 2.5 && < 2.6, sudoku
+  build-tool-depends: hspec-discover:hspec-discover >= 2.9 && < 2.10
+  build-depends:      base >=4.13 && <4.14, permutation >=0.5 && <0.6, array >=0.5 && <0.6, containers >=0.5 && <0.6, hspec >=2.9 && <2.10, sudoku
   other-modules:      Sudoku.Solver.SolveSpec Paths_sudoku
 
 
