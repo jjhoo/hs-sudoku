@@ -18,4 +18,4 @@ then to run some tests
 
 # Testing
 
-Travis-ci: [![Build status](https://travis-ci.org/jjhoo/hs-sudoku.svg?branch=master)](https://travis-ci.org/jjhoo/hs-sudoku)
+[![Build Status](https://ci.koodisuo.fi/buildStatus/icon?job=hs-sudoku%2Fmaster)](https://ci.koodisuo.fi/job/hs-sudoku/job/master/)
