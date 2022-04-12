@@ -2,6 +2,5 @@ packages: .
 
 source-repository-package
     type: git
-    location: git://github.com/jjhoo/permutation.git
+    location: https://github.com/jjhoo/permutation.git
     tag: 41841d58187e19cf0c55addb82be4cc23b488e7d
-    
